@@ -1,0 +1,36 @@
+{
+  "name": "position-calculator",
+  "version": "1.0.0",
+  "description": "DCA position calculator with dynamic TP per stage (LONG/SHORT).",
+  "license": "MIT",
+  "author": "Wellington Rocha",
+  "type": "module",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.cjs"
+    }
+  },
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "npm run build:esm && npm run build:cjs && npm run build:types",
+    "build:esm": "tsc -p tsconfig.json --outDir dist/esm --module ES2020 --declaration false",
+    "build:cjs": "tsc -p tsconfig.json --outDir dist/cjs --module CommonJS --moduleResolution Node --declaration false && node scripts/rename-cjs.js",
+    "build:types": "tsc -p tsconfig.types.json",
+    "prepublishOnly": "npm run clean && npm run build",
+    "clean": "rimraf dist",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.5",
+    "typescript": "^5.5.4",
+    "vitest": "^3.2.4"
+  }
+}
